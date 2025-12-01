@@ -1,0 +1,7 @@
+pydantic
+tqdm
+colorama
+ruff
+# PyOpenGL 
+# PyOpenGL_accelerate
+# PyQt6   # https://www.pythonguis.com/pyqt6-tutorial/
