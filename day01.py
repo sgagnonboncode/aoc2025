@@ -3,14 +3,15 @@ from src.merry import display_splash_title
 from enum import Enum
 from colorama import Fore, Back, Style
 
-display_splash_title()
+PUZZLE_ID = 1
+display_splash_title(PUZZLE_ID)
 
 position = 50
 password_part1 = 0
 password_part2 = 0
 
-input = read_input(1)
-# input = read_example_input(1)
+input = read_input(PUZZLE_ID)
+# input = read_example_input(PUZZLE_ID)
 
 for line in input:
     if not line or len(line) < 2:

@@ -3,11 +3,11 @@ from src.merry import display_splash_title
 from enum import Enum
 from colorama import Fore, Back, Style
 
-display_splash_title()
+PUZZLE_ID = 2
+display_splash_title(PUZZLE_ID)
 
-
-input = read_input(2)
-# input = read_example_input(2)
+input = read_input(PUZZLE_ID)
+# input = read_example_input(PUZZLE_ID)
 
 sequences = input[0].strip().split(",")
 
