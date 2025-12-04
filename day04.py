@@ -11,32 +11,41 @@ display_splash_title(PUZZLE_ID)
 # input = read_example_input(PUZZLE_ID)
 input = read_input(PUZZLE_ID)
 
-class MapPosition(tuple[int,int]):
+
+class MapPosition(tuple[int, int]):
     @property
     def x(self) -> int:
         return self[0]
+
     @property
     def y(self) -> int:
         return self[1]
 
-rolls:set[MapPosition] = set()
 
-for y,line in enumerate(input):
-    for x,char in enumerate(line.strip()):
-        if char == '@':
-            rolls.add(MapPosition((x,y)))
+rolls: set[MapPosition] = set()
+
+for y, line in enumerate(input):
+    for x, char in enumerate(line.strip()):
+        if char == "@":
+            rolls.add(MapPosition((x, y)))
 
 
-adjacent_offsets = [(-1,-1), (0,-1), (1,-1),
-                    (-1,0),         (1,0),
-                    (-1,1),  (0,1),  (1,1)]
+adjacent_offsets = [
+    (-1, -1),
+    (0, -1),
+    (1, -1),
+    (-1, 0),
+    (1, 0),
+    (-1, 1),
+    (0, 1),
+    (1, 1),
+]
 
 MOVE_ROLL_THRESHOLD = 4
 
 initial_nb_rolls = len(rolls)
 first_step = True
 while True:
-
     removable = set()
 
     for roll in rolls:
@@ -46,7 +55,7 @@ while True:
             if neighbor in rolls:
                 nb_adjacent += 1
 
-        if nb_adjacent < MOVE_ROLL_THRESHOLD:            
+        if nb_adjacent < MOVE_ROLL_THRESHOLD:
             removable.add(roll)
 
     if first_step:
@@ -60,5 +69,5 @@ while True:
 
 part2 = initial_nb_rolls - len(rolls)
 
-print(f"{Fore.GREEN}Part 1: {Fore.RESET} {part1}")
+print(f"{Fore.GREEN}Part 1: {Fore.RESET} {part1}")  # type: ignore
 print(f"{Fore.GREEN}Part 2: {Fore.RESET} {part2}")
