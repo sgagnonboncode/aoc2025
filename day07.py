@@ -22,7 +22,7 @@ for y, line in enumerate(input):
 
 start_pos = None
 for x in range(len(input[0])):
-    if grid[(x, 0)] == 'S':
+    if grid[(x, 0)] == "S":
         start_pos = (x, int(0))
         break
 
@@ -35,27 +35,27 @@ bounds = grid.get_bounds()
 min_x, min_y = bounds[0]
 max_x, max_y = bounds[1]
 
-part1=0
-for y in range(min_y+1, max_y + 1):
+part1 = 0
+for y in range(min_y + 1, max_y + 1):
     row = grid.get_row(y)
-    previous_row = grid.get_row(y-1)
+    previous_row = grid.get_row(y - 1)
 
     for i, char in enumerate(previous_row):
-        beams = tachyon_grid[(i, y-1)]
-        if beams >0:
-            if row[i] == '.':
-                grid[(i, y)] = '|'
+        beams = tachyon_grid[(i, y - 1)]
+        if beams > 0:
+            if row[i] == ".":
+                grid[(i, y)] = "|"
                 tachyon_grid[(i, y)] += beams
-            elif row[i] == '^':
+            elif row[i] == "^":
                 part1 += 1
                 # left
-                if i-1 >= min_x and row[i-1] == '.':
-                        grid[(i-1, y)] = '|'
-                        tachyon_grid[(i-1, y)] += beams
+                if i - 1 >= min_x and row[i - 1] == ".":
+                    grid[(i - 1, y)] = "|"
+                    tachyon_grid[(i - 1, y)] += beams
                 # right
-                if i+1 <= max_x and row[i+1] == '.':
-                        grid[(i+1, y)] = '|'
-                        tachyon_grid[(i+1, y)] += beams
+                if i + 1 <= max_x and row[i + 1] == ".":
+                    grid[(i + 1, y)] = "|"
+                    tachyon_grid[(i + 1, y)] += beams
 
 
 # for y in range(min_y, max_y + 1):

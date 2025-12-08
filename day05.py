@@ -11,6 +11,7 @@ display_splash_title(PUZZLE_ID)
 # input = read_example_input(PUZZLE_ID)
 input = read_input(PUZZLE_ID)
 
+
 class FreshRange(tuple[int, int]):
     @property
     def start(self) -> int:
@@ -19,15 +20,16 @@ class FreshRange(tuple[int, int]):
     @property
     def end(self) -> int:
         return self[1]
-    
+
     def contains(self, value: int) -> bool:
         return self.start <= value <= self.end
+
 
 freshness_ranges: list[FreshRange] = []
 range_completed = False
 
-part1=0
-part2=0
+part1 = 0
+part2 = 0
 
 for line in input:
     if line.strip() == "":
@@ -43,14 +45,14 @@ for line in input:
         for range in freshness_ranges:
             if range.contains(ingredient_id):
                 part1 += 1
-                break        
+                break
 
 # part 2 : enumerate all possible freshness values
 # we will not be testing all values one by one because
-# doing so would take too long given the absurdly large 
+# doing so would take too long given the absurdly large
 # ranges we have to deal with.
 #
-# instead , we will calculate the number of values thusly: 'end'-'start'+1 
+# instead , we will calculate the number of values thusly: 'end'-'start'+1
 # then, we will substract any overlaps between ranges to avoid double counting.
 #
 # this can be easily done by sorting the ranges by start value, then iterating

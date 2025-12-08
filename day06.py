@@ -11,11 +11,13 @@ display_splash_title(PUZZLE_ID)
 # input = read_example_input(PUZZLE_ID)
 input = read_input(PUZZLE_ID)
 
+
 class Operator(Enum):
     ADD = "+"
     MUL = "*"
 
-class MathProblem():
+
+class MathProblem:
     def __init__(self, operator: Operator, columns: int):
         self.normal_operands: list[int] = []
         self.cephalopod_operands: list[list[int]] = [[] for _ in range(columns)]
@@ -24,7 +26,7 @@ class MathProblem():
     def add_operand(self, value: int):
         self.normal_operands.append(value)
 
-    def add_cephalopod_digit(self, column:int, digit:int):
+    def add_cephalopod_digit(self, column: int, digit: int):
         self.cephalopod_operands[column].append(digit)
 
     def evaluate(self) -> int:
@@ -37,14 +39,14 @@ class MathProblem():
             return result
         else:
             raise ValueError("Unknown operator")
-        
+
     def evaluate_cephalopod(self) -> int:
-        #build the operands from the digits
+        # build the operands from the digits
         operands = []
         for digit_list in self.cephalopod_operands:
             operand_value = 0
             for digit in digit_list:
-                operand_value = operand_value*10 + digit
+                operand_value = operand_value * 10 + digit
             operands.append(operand_value)
 
         # do the cephalopod math
@@ -60,34 +62,34 @@ class MathProblem():
                 result *= op
         else:
             raise ValueError("Unknown operator")
-        
+
         # print(f"Cephalopod operands: {operands} Operator: {self.operator} Result: {result}")
         return result
 
 
 # parse the positions of the operators from the last line
 problems: list[MathProblem] = []
-operators_pos: list[int]=[]
-operators_value : list[Operator]=[]
+operators_pos: list[int] = []
+operators_value: list[Operator] = []
 
-for i,op in enumerate(input[-1]):
-    if op in ('+', '*'):
+for i, op in enumerate(input[-1]):
+    if op in ("+", "*"):
         operators_pos.append(i)
-        operators_value.append(Operator.ADD if op == '+' else Operator.MUL)
+        operators_value.append(Operator.ADD if op == "+" else Operator.MUL)
 
-for i in range(0,len(operators_pos)-1):
-    next_pos = operators_pos[i+1]
+for i in range(0, len(operators_pos) - 1):
+    next_pos = operators_pos[i + 1]
     column_count = next_pos - operators_pos[i] - 1
     problems.append(MathProblem(operators_value[i], column_count))
 
 # scan the largest line to determine the number of columns for the last problem
 max_line_length = max(len(line) for line in input)
 last_operator_columns = max_line_length - operators_pos[-1] - 1
-problems.append(MathProblem(operators_value[-1], last_operator_columns))    
+problems.append(MathProblem(operators_value[-1], last_operator_columns))
 
 # map digit positions/columns to problems to avoid
 # having to re-scan the operators for each new line
-digit_problem_map: dict[int,tuple[int,int]] = {}
+digit_problem_map: dict[int, tuple[int, int]] = {}
 for i in range(max_line_length):
     # first problem
     if i < operators_pos[0]:
@@ -96,17 +98,17 @@ for i in range(max_line_length):
     # middle problems
     for j, op_pos in enumerate(operators_pos):
         if i < op_pos:
-            column = i - (0 if j == 0 else operators_pos[j-1]+1)
-            digit_problem_map[i] = (j-1, column)
+            column = i - (0 if j == 0 else operators_pos[j - 1] + 1)
+            digit_problem_map[i] = (j - 1, column)
             break
     # last problem
     else:
-        digit_problem_map[i] = (len(problems)-1, i - operators_pos[-1] - 1)
+        digit_problem_map[i] = (len(problems) - 1, i - operators_pos[-1] - 1)
 
 
 for line in input[0:-1]:
     # normal operands, split by spaces
-    tokens = line.split()       
+    tokens = line.split()
     for i, token in enumerate(tokens):
         problems[i].add_operand(int(token))
 
