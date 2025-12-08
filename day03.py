@@ -18,9 +18,9 @@ part2 = 0
 def part_1_maximum_joltage(cells: list[int]) -> int:
     max_jolt = 0
 
-    for i in range(0, len(cell_joltages) - 1):
-        for j in range(i + 1, len(cell_joltages)):
-            jolt = cell_joltages[i] * 10 + cell_joltages[j]
+    for i in range(0, len(cells) - 1):
+        for j in range(i + 1, len(cells)):
+            jolt = cells[i] * 10 + cells[j]
             if jolt > max_jolt:
                 max_jolt = jolt
     return max_jolt
