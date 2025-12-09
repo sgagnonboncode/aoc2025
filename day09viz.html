@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 09 - 20x20 Grid Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            gap: 0px;
+            max-width: 8000px;
+            margin: 0 auto;
+            background-color: #ccc;
+            padding: 0px;
+            border-radius: 5px;
+        }
+        
+        .grid-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            background-color: #fff;
+            border-radius: 2px;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .grid-item img.error {
+            display: none;
+        }
+        
+        .grid-item.missing {
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .info {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Day 09 - Tile Grid (20x20)</h1>
+    <div class="info">
+        Displaying tiles with format: day09_tile_x_y.png
+    </div>
+    <div class="grid-container" id="gridContainer">
+    </div>
+
+    <script>
+        // Generate the 20x20 grid
+        const gridContainer = document.getElementById('gridContainer');
+        
+        for (let y = 0; y < 20; y++) {
+            for (let x = 0; x < 20; x++) {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                
+                const img = document.createElement('img');
+                const filename = `day09_tile_${x}_${y}.png`;
+                img.src = filename;
+                img.alt = `Tile ${x},${y}`;
+                img.title = filename;
+                
+                // Handle missing images
+                img.onerror = function() {
+                    gridItem.classList.add('missing');
+                    gridItem.innerHTML = `${x},${y}`;
+                    img.style.display = 'none';
+                };
+                
+                gridItem.appendChild(img);
+                gridContainer.appendChild(gridItem);
+            }
+        }
+    </script>
+</body>
+</html>

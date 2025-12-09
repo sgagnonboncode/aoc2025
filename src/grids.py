@@ -3,6 +3,28 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+class Position2D(tuple[int, int]):
+    @property
+    def x(self) -> int:
+        return self[0]
+
+    @property
+    def y(self) -> int:
+        return self[1]
+    
+class Position3D(tuple[int, int, int]):
+    @property
+    def x(self) -> int:
+        return self[0]
+
+    @property
+    def y(self) -> int:
+        return self[1]
+    
+    @property
+    def z(self) -> int:
+        return self[2]
+
 
 class TupleGrid2D(Generic[T], dict[tuple[int, int], T]):
     def get_row(self, y: int) -> list[T]:
