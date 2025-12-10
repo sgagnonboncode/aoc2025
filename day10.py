@@ -120,9 +120,8 @@ class Machine():
         # finally, the problem dosent ask us for the exact button presses, just the minimum number
         # of presses to reach the desired joltage state.
         #
-        # iteratating over all possible combinations at once would be too expensive,
-        # but we can set a limit for each iterations based on a current target, starting
-        # at the maximum value in B
+        # iterating over all possible combinations at once is too expensive
+        # 
 
         constraints: list[tuple[set[int], int]] = []
         for joltage_index in range(self.nb_lights):
@@ -136,9 +135,13 @@ class Machine():
         nb_buttons = len(self.buttons)        
         absolute_minimum_presses = max( (j for j in self.joltages) )
         
+        # this is an integer linear programming problem (LPP).
+        # the variable to optimize is the total number of button presses, as low as possible
+        # while satisfying all the constraints of the system.
+        #
         # there is bound to be a solution involving modulos of the remaining buttons
         # for the weights of each buttons ... but there is also a nifty library called 'z3-solver'
-        # which is perfect for this kind of problem.
+        # which is perfect for this kind of thing.
 
         opt = Optimize()
         # b0, b1, b2, ...
