@@ -3,6 +3,8 @@ tqdm
 colorama
 ruff
 pillow
+numpy
+z3-solver
 
 
 # PyOpenGL 
