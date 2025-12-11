@@ -162,7 +162,7 @@ class Machine():
 
         if opt.check() == sat:
             model = opt.model()
-            return model.evaluate(total_presses_var).as_long()
+            return model.evaluate(total_presses_var).as_long() # type: ignore # 
         
         raise Exception("No solution found, this should not happen")
 
